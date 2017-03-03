@@ -9,22 +9,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="script/script.js" type="text/javascript"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script>
-            $(document).ready(function () {
-                    servletCall();
-            });
-            function servletCall() {
-                $.get(
-                        "personServlet",
-                        {person: $("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val()},
-                        function (result) {
-                            var userArr = result;
-                            console.log(userArr);
-                        });
-            };
-        </script>
+        
     </head>
-   
+
     <body>
 
         <div class="container">
@@ -43,15 +30,48 @@
             </table>
             <br />
             <br />
-            <form action="personServlet" method="POST">
             First Name:
             <input type="text" id="firstName" />
             Last Name:
             <input type="text" id="lastName" />
             Age:
             <input type="text" id="age" />
-            <button onclick="" id="somebutton">Register Person</button>
-            </form>
+            <input type="button" id="somebutton" value="Submit" />
         </div>
+        
+        <script>
+            $(document).ready(function () {
+                servletCall();
+            });
+            
+            function servletCall() {
+                $.get(
+                        "personServlet",
+                        {person: $("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val()},
+                        function (result) {
+                            var userArr = result;
+                            console.log(userArr);
+                        });
+            }
+            ;
+
+            function addUser() {
+                alert($("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val());
+                console.log($("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val());
+                $.ajax({
+                    url: 'personServlet',
+                    data: {person: $("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val()},
+                    type: 'post',
+                    cache: false,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                }
+                );
+            };
+        </script>
     </body>
 </html>

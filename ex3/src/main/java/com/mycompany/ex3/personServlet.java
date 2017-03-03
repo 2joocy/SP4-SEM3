@@ -86,12 +86,14 @@ public class personServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String person = request.getParameter("person");
-        String[] split = person.split(";");
-        String firstName = split[0];
-        String lastName = split[1];
-        int age = Integer.parseInt(split[2]);
-//        persons.add(new Person(100, split[0], split[1], Integer.parseInt(split[2])));
-        response.getWriter().print(firstName + " " + lastName + " " + age);
+//        String[] split = person.split(";");
+//        String firstName = split[0];
+//        String lastName = split[1];
+//        int age = Integer.parseInt(split[2]);
+////        persons.add(new Person(100, split[0], split[1], Integer.parseInt(split[2])));
+//        response.getWriter().print(firstName + " " + lastName + " " + age);
+            response.getWriter().print("Person has been added: " + person);
+
     }
 
     /**
