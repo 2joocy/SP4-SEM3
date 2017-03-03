@@ -14,14 +14,14 @@
                     servletCall();
             });
             function servletCall() {
-                $.post(
+                $.get(
                         "personServlet",
-                        {name: "Message from jsp"}, //meaasge you want to send
+                        {person: $("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val()},
                         function (result) {
-                            console.log(result.toString());
+                            var userArr = result;
+                            console.log(userArr);
                         });
-            }
-            ;
+            };
         </script>
     </head>
    
@@ -43,6 +43,7 @@
             </table>
             <br />
             <br />
+            <form action="personServlet" method="POST">
             First Name:
             <input type="text" id="firstName" />
             Last Name:
@@ -50,6 +51,7 @@
             Age:
             <input type="text" id="age" />
             <button onclick="" id="somebutton">Register Person</button>
+            </form>
         </div>
     </body>
 </html>

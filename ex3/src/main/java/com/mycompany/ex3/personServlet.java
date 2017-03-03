@@ -28,7 +28,6 @@ public class personServlet extends HttpServlet {
 
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //    Gson gson = new Gson();
-    private static int index = 0;
     private static List<Person> persons = new ArrayList() {
         {
             add(new Person(1, "Hans", "Pedersen", 57));
@@ -71,8 +70,8 @@ public class personServlet extends HttpServlet {
         String arr = new Gson().toJson(persons);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        System.out.println(arr);
-//        response.getWriter().write(quote);
+        response.getWriter().println(gson.toJson(persons));
+        //        response.getWriter().write(quote);
     }
 
     /**
@@ -86,13 +85,13 @@ public class personServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String text = "<br>Message from servlet<br>"; //message you will recieve 
-        String name = request.getParameter("name");
-        String person = gson.toJson(persons.get(index));
-        for(Person p : persons){
-            response.getWriter().print(gson.toJson(p));
-        }
-
+        String person = request.getParameter("person");
+        String[] split = person.split(";");
+        String firstName = split[0];
+        String lastName = split[1];
+        int age = Integer.parseInt(split[2]);
+//        persons.add(new Person(100, split[0], split[1], Integer.parseInt(split[2])));
+        response.getWriter().print(firstName + " " + lastName + " " + age);
     }
 
     /**
