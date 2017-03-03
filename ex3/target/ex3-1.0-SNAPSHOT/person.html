@@ -9,14 +9,14 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="script/script.js" type="text/javascript"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        
+
     </head>
 
     <body>
 
         <div class="container">
             <h2>Task5</h2>
-            <table id="carTable" class="table table-hover">
+            <table id="personTable" class="table table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -36,21 +36,42 @@
             <input type="text" id="lastName" />
             Age:
             <input type="text" id="age" />
-            <input type="button" id="somebutton" value="Submit" />
+            <input type="button" id="somebutton" onclick="addUser()" value="Submit" />
         </div>
-        
+
         <script>
+
+            var userArr = [];
+
+
             $(document).ready(function () {
                 servletCall();
+                populateTablePerson();
             });
-            
+
             function servletCall() {
                 $.get(
                         "personServlet",
                         {person: $("#firstName").val() + ";" + $("#lastName").val() + ";" + $("#age").val()},
                         function (result) {
-                            var userArr = result;
-                            console.log(userArr);
+                            userArr = result;
+                            for (var i = 0; i < userArr.length; i++) {
+                                var table = document.getElementById("personTable");
+                                var row = table.insertRow(1);
+                                var cell1 = row.insertCell(0);
+                                var cell2 = row.insertCell(1);
+                                var cell3 = row.insertCell(2);
+                                var cell4 = row.insertCell(3);
+                                console.log(userArr[i].id);
+                                console.log(userArr[i].firstname);
+                                console.log(userArr[i].lastname);
+                                console.log(userArr[i].age);
+                                cell1.innerHTML = userArr[i].id;
+                                cell2.innerHTML = userArr[i].firstname;
+                                cell3.innerHTML = userArr[i].lastname;
+                                cell4.innerHTML = userArr[i].age;
+                            }
+                            console.log(userArr[1].firstname);
                         });
             }
             ;
@@ -71,7 +92,12 @@
                     }
                 }
                 );
-            };
+            }
+            ;
+
+            function populateTablePerson() {
+
+            }
         </script>
     </body>
 </html>

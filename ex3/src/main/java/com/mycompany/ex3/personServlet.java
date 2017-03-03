@@ -8,11 +8,13 @@ package com.mycompany.ex3;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.Person;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -70,7 +72,7 @@ public class personServlet extends HttpServlet {
         String arr = new Gson().toJson(persons);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().println(gson.toJson(persons));
+        response.getWriter().println(gson.toJson(persons, List.class));
         //        response.getWriter().write(quote);
     }
 
@@ -85,14 +87,20 @@ public class personServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String person = request.getParameter("person");
+        Stream<String> userRequest = request.getReader().lines();
+        StringBuilder buffer = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+        System.out.println(line);
 //        String[] split = person.split(";");
 //        String firstName = split[0];
 //        String lastName = split[1];
 //        int age = Integer.parseInt(split[2]);
 ////        persons.add(new Person(100, split[0], split[1], Integer.parseInt(split[2])));
 //        response.getWriter().print(firstName + " " + lastName + " " + age);
-            response.getWriter().print("Person has been added: " + person);
 
     }
 
