@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+
+        <div id="userContainer">
+
+        </div>
+
+        <input type="text" id="username" />
+        <input type="button" id="userButton" onclick="addUser();" value="Add User" />
+        <input type="button" id="userButtonDelete" onclick="removeAllLi();" value="Remove User" />
+        <script>
+            var users = [];
+            var userContainer = document.getElementById("userContainer");
+            
+
+            function addAllUsers() {
+                addUser();
+            }
+
+            function addUserToHTML() {
+                for(i = 0; i < users.length;i++){
+                    userContainer.innerHTML += "<li id='userLi' >" + users[i] + "</li>";
+                }
+            }
+
+            function addUser() {
+                var username = document.getElementById("username").value;
+                users.push(username);
+                console.log("User added to array: " + username);
+                userContainer.innerHTML += "<li id='userLi' >" + username + "</li>";
+            }
+            
+            function removeAllLi() {
+            var userLi = document.getElementById("userLi");
+                for(var u in users){
+                    userLi.removeChild(userLi.firstChild);
+                }
+            }
+        </script> 
+    </body>
+</html>
